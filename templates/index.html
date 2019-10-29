@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Söluaðilar Eldneytis á Íslandi</h1>
+        <h3><a href="/">Heim</a></h3>
+    </header>
+    <main>
+        <div class="wrapper">
+            {% for x in companies %}
+                {% for i in myndir %}
+                        {% if x == i[0] %}
+                        <div class="box">
+                            <a href="/company/{{ x }}">
+                            <img src="static/{{ i[1] }}" alt="{{ x }}">
+                            </a>
+                        </div>
+                        {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+            <div class="kort">
+                <h1>Besta Verð</h1>
+                {% for x in data["results"] %}
+                    {% if x["bensin95"] == min_verd_bensin %}
+                        <h2>Ódýrasta bensínið: {{ min_verd_bensin }} er hjá {{ x["company"] }}, {{ x["name"] }}</h2>
+                    {% endif %}
+                    {% if x["diesel"] == min_diesel %}
+                        <h2>Ódýrasta díesel olían: {{ min_diesel }} er hjá {{ x["company"] }}, {{ x["name"] }}</h2>
+                    {% endif %}
+                {% endfor %}
+                <h2>Síðast uppfært: {{ data["timestampApis"] }}</h2>
+            </div>
+    </main>
+    
+</body> 
+</html>

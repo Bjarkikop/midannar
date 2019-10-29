@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <h1>Nánari upplýsingar bensínstöðvar</h1>
+        <header>
+            <h3><a href="/">Heim</a></h3>
+        </header>
+        {% for x in data["results"] %}
+            {% if id == x["key"] %}
+                <h3>Söluaðili: {{ x["company"] }}</h3>
+                <h3>Staður: {{ x["name"] }}</h3>
+                <h3>Verð á 1. lítra af Bensíni, 95 oktan: {{ x["bensin95"] }} kr.</h3>
+                <h3>Verð á 1. lítra af Dísel olíu: {{ x["diesel"] }} kr.</h3>
+                <div class="kort">
+                    <h3>Breiddargráða: {{ x["geo"]["lat"] }}</h3>
+                    <h3>Lengdargráða: {{ x["geo"]["lon"] }}</h3>
+                    <h3><a href='https://www.google.com/maps/@{{ x["geo"]["lat"] }},{{ x["geo"]["lon"] }},18z/'>Staðsetning á Google korti</a></h3>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </main>
+
+
+</body>
+</html>
